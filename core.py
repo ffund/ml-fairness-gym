@@ -44,11 +44,6 @@ import simplejson as json
 # to serialize.
 RANDOM_STATE_KEY = '__random_state__'
 
-flags.DEFINE_bool(
-    'validate_history', False,
-    'If True, metrics check the validity of the history when measuring. '
-    'Can be turned off to save computation.')
-
 
 class NotInitializedError(Exception):
   """Object is not fully initialized."""
@@ -504,8 +499,7 @@ class Metric(object):
   def _extract_history(self, env):
     """Gets and validates a history from an environment."""
     history = env._get_history()  # pylint: disable=protected-access
-    if flags.FLAGS.validate_history:
-      self._validate_history(history)
+    self._validate_history(history)
     if self._realign_fn is not None:
       return self._realign_fn(history)
     return history

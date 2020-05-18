@@ -25,11 +25,6 @@ import gin
 import tqdm
 
 
-FLAGS = flags.FLAGS
-
-flags.DEFINE_boolean("use_tqdm", True,
-                     "Use tqdm to visually represent progress in simulations.")
-
 
 @gin.configurable
 def run_simulation(env, agent, metrics, num_steps, seed=100, agent_seed=50):
@@ -55,7 +50,7 @@ def run_simulation(env, agent, metrics, num_steps, seed=100, agent_seed=50):
   done = False
 
   print("Starting simulation")
-  simulation_iterator = tqdm.trange if FLAGS.use_tqdm else range
+  simulation_iterator = tqdm.trange 
 
   for _ in simulation_iterator(num_steps):
     # Update the agent with any changes to the observation or action space.
@@ -117,7 +112,7 @@ def run_stackelberg_simulation(env,
   action = agent.initial_action()
   done = False
   print("Starting simulation")
-  simulation_iterator = tqdm.trange if FLAGS.use_tqdm else range
+  simulation_iterator = tqdm.trange 
   for _ in simulation_iterator(num_steps):
     # TODO(): Remove reward from this loop.
     observation, _, done, _ = env.step(action)
